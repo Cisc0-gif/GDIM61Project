@@ -31,7 +31,7 @@ public class CountdownTimer : MonoBehaviour
             currentTime = 0;
             countdownText.color = Color.red;
 		}
-        countdownText.text = currentTime.ToString();
+        countdownText.text = Mathf.Round(currentTime).ToString();
         
     }
 }
