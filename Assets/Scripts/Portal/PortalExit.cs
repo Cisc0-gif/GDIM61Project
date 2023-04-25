@@ -11,9 +11,11 @@ public class PortalExit : MonoBehaviour
     [SerializeField]
     private GameObject ParodiedObject;
 
-   
-    void Start()
+    [SerializeField]
+    private SpriteRenderer Renderer;
+    void Awake()
     {
+        Renderer = GetComponent<SpriteRenderer>();
         
     }
 
@@ -30,7 +32,7 @@ public class PortalExit : MonoBehaviour
 
     public void ParodyObject(GameObject Parody)
     {
-        ParodiedObject = Instantiate(Parody, transform.position, Parody.transform.rotation, transform);
+        ParodiedObject = Instantiate(Parody, transform.position - new Vector3(0,0,1), Parody.transform.rotation, transform);
     }
 
     public void RemoveObject()
@@ -42,5 +44,10 @@ public class PortalExit : MonoBehaviour
     public void UpdateParody (Vector3 Rotation)
     {
         ParodiedObject.transform.eulerAngles = Rotation;
+    }
+
+    public void UpdateTexture(Material mat)
+    {
+        Renderer.material = mat;
     }
 }

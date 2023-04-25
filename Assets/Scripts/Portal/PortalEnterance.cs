@@ -8,13 +8,16 @@ public class PortalEnterance : MonoBehaviour
     [SerializeField]
     private PortalExit Exit;
 
-    [SerializeField]
     private PortalObject PlacedObject;
 
+    [SerializeField]
+    private SpriteRenderer Renderer;
+
+
     //public Action<Vector3> RotateObject;
-    void Start()
+    void Awake()
     {
-        
+        Renderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -48,6 +51,7 @@ public class PortalEnterance : MonoBehaviour
         if (collision.GetComponent<PortalObject>() != null)
         {
             Debug.Log("Portal Obj Entered");
+            collision.transform.position -= new Vector3(0f, 0f, transform.position.z + 1);
             PlaceObject(collision.GetComponent<PortalObject>());
         }
     }
@@ -59,5 +63,11 @@ public class PortalEnterance : MonoBehaviour
         {
             RemoveObject();
         }
+    }
+
+    public void SwitchMaterial(Color color)
+    {
+        Renderer.material.SetColor("_BGColor", color);
+        Exit.UpdateTexture(Renderer.material);
     }
 }

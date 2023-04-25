@@ -30,7 +30,7 @@ public class PortalObject : MonoBehaviour, ClickableObject
     {
         if (IsClicked)
         {
-            transform.position = MouseManager.MousePos2D;
+            transform.position = (Vector3) MouseManager.MousePos2D + new Vector3(0,0,transform.position.z);
 
             if (Input.GetKeyDown(KeyCode.A))
             {
