@@ -11,7 +11,8 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: 5c11881153d6c2247812c92c0a0637eb, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _USERANDOM
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -48,10 +49,17 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _USERANDOM: 1
     m_Colors:
+    - _BGColor: {r: 0, g: 1, b: 0.12173907, a: 0}
     - _BackgroundColor: {r: 0, g: 1, b: 0, a: 0}
+    - _Center: {r: 1, g: 0, b: 0, a: 0}
+    - _Frequency: {r: 1, g: 4, b: 0, a: 0}
+    - _Offset: {r: 0.25, g: 2, b: 0, a: 0}
     - _PatternColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Strength: {r: 1, g: 3, b: 0, a: 0}
+    - _Tiling: {r: 10, g: 10, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3411263359720744548
 MonoBehaviour:

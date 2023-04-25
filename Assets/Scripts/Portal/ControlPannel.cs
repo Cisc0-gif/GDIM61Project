@@ -31,7 +31,6 @@ public class ControlPannel : MonoBehaviour
             {
                 SelectedBar = 0;
             }
-            Debug.Log(SelectedBar);
             ChangePannels();
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))

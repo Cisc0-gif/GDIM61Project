@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PortalEnterance : MonoBehaviour
 {
@@ -13,11 +14,17 @@ public class PortalEnterance : MonoBehaviour
     [SerializeField]
     private SpriteRenderer Renderer;
 
+    [SerializeField]
+    private RandomPattern Frequency;
+
+    [SerializeField]
+    private RandomPattern Strength;
 
     //public Action<Vector3> RotateObject;
     void Awake()
     {
         Renderer = GetComponent<SpriteRenderer>();
+        Renderer.material.SetVector("_Frequency", Frequency.getRandom());
     }
 
     // Update is called once per frame
@@ -69,5 +76,25 @@ public class PortalEnterance : MonoBehaviour
     {
         Renderer.material.SetColor("_BGColor", color);
         Exit.UpdateTexture(Renderer.material);
+    }
+}
+
+
+[System.Serializable]
+public class RandomPattern {
+
+    [SerializeField]
+    private Vector2 MinValue;
+    [SerializeField]
+    private Vector2 MaxValue;
+
+    public RandomPattern (Vector2 MinValue, Vector2 MaxValue) { 
+        this.MinValue = MinValue;
+        this.MaxValue = MaxValue;
+    }
+
+    public Vector2 getRandom()
+    {
+        return new Vector2(Random.Range(MinValue.x, MaxValue.x), Random.Range(MinValue.y, MaxValue.y));
     }
 }

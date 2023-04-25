@@ -681,6 +681,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Exit: {fileID: 871078028}
   Renderer: {fileID: 0}
+  Frequency:
+    MinValue: {x: 0, y: 0}
+    MaxValue: {x: 5, y: 5}
+  Strength:
+    MinValue: {x: -25, y: -25}
+    MaxValue: {x: 25, y: 25}
 --- !u!212 &941796892
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -791,7 +797,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
   m_FlipX: 0
@@ -811,7 +817,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1461658445}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4301, y: -1.5898336, z: 0}
+  m_LocalPosition: {x: 0.4301, y: -1.5898336, z: 1}
   m_LocalScale: {x: 9.284489, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -914,6 +920,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Exit: {fileID: 469521696}
   Renderer: {fileID: 0}
+  Frequency:
+    MinValue: {x: 0, y: 0}
+    MaxValue: {x: 5, y: 5}
+  Strength:
+    MinValue: {x: -25, y: -25}
+    MaxValue: {x: 25, y: 25}
 --- !u!212 &1838371930
 SpriteRenderer:
   m_ObjectHideFlags: 0
