@@ -48,32 +48,44 @@ public class Laser : MonoBehaviour
         if (!FinishedLaser)
         {
             float max_laser_distance = 5;
-            //Will move max_laser_distance units unless it encounters an Object layer collider between that distance.
+            //Will move max_laser_distance units unless it encounters an Object layer collider between that distance.           
+
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up,max_laser_distance, (LayerMask.GetMask("Objects")));
+            RaycastHit2D wallhit = Physics2D.Raycast(transform.position, transform.up, max_laser_distance, (LayerMask.GetMask("Walls"))); //Ferenc
+            
+            //Check collision with object first
             if (hit.collider != null)
             {
-                
+
                 float distance = Vector2.Distance(hit.point, transform.position);
                 if (Vector2.Distance(hit.collider.transform.position, lastHit) > 0.05f)
                 {
 
                     rend.AddPosition(transform.position);
                     rend.AddPosition(hit.point);
-                    hit.collider.SendMessage("Collide", this,SendMessageOptions.DontRequireReceiver);
+                    hit.collider.SendMessage("Collide", this, SendMessageOptions.DontRequireReceiver);
                     //The Collide(laser) functon is Duck Typed to all Laser interacting scripts, and will only call here.
-                    lastHit=hit.collider.transform.position;
+                    lastHit = hit.collider.transform.position;
                     transform.position = hit.collider.transform.position;
-                 }
+                }
                 else
                 {
-                    transform.position += transform.up*0.5f;
+                    transform.position += transform.up * 0.5f;
                 }
+            }
+            else if (wallhit.collider != null) //if no object collided w/ check collision with wall instead (Ferenc)
+            {
+                rend.AddPosition(transform.position);
+                rend.AddPosition(wallhit.point);
+                wallhit.collider.SendMessage("Collide", this, SendMessageOptions.DontRequireReceiver);
+                //The Collide(laser) functon is Duck Typed to all Laser interacting scripts, and will only call here.
+                lastHit = wallhit.collider.transform.position;
+                transform.position = wallhit.collider.transform.position;
             }
             else
             {
                 transform.position += transform.up * max_laser_distance;
             }
-
 
             if (Vector2.Distance(Camera.main.transform.position, transform.position) > DeSpawnDistance)
             {
