@@ -82,24 +82,17 @@ public class GrabObjects : MonoBehaviour
             }
             else if (Keyboard.current.spaceKey.wasPressedThisFrame && grabbedObject != null) //else if something grabbed
             {
-                
-                CratePutBack();
+                CratePutBack(hitInfo);
             }
 		}
 
         Debug.DrawRay(rayPoint.position, dir * rayDistance);
 
-        if(grabbedObject != null)
-        {
-            Debug.DrawRay(grabPoint.position, dir * rayDistance, Color.cyan);
-
-        }
     }
 
-    private void CratePutBack()
+    private void CratePutBack(RaycastHit2D hit)
     {
-        RaycastHit2D hit = Physics2D.Raycast(grabPoint.position, dir, rayDistance, LayerMask.GetMask("Crates"));
-        Debug.Log(hit.collider);
+        
         if(hit.collider == null)
         {
             grabbedObject.transform.position = Vector3Int.RoundToInt(grabbedObject.transform.position);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,7 @@ public class PrismStorage : MonoBehaviour
     private int MaxPrisms;
     private int CurrentPrisms;
     private Prism StoredType;
+    private bool InWorldReference = false;
 
     void Start()
     {
@@ -45,6 +47,10 @@ public class PrismStorage : MonoBehaviour
         }
         CurrentPrisms--;
         GameObject prism = Instantiate(Prism, transform.position, Quaternion.identity);
+        if(InWorldReference)
+        {
+            prism.SetActive(true);
+        }
         prism.name = $"{Prism.name} {MaxPrisms - CurrentPrisms}";
         UpdateVisuals();
         return prism;
@@ -57,6 +63,10 @@ public class PrismStorage : MonoBehaviour
         PrismDisplay.sprite = Prism.GetComponent<SpriteRenderer>().sprite;
         PrismCrateName.text = Prism.name;
         Text.text = $"{CurrentPrisms}";
+        if(InWorldReference && CurrentPrisms <= 0)
+        {
+            Destroy(Prism);
+        }
     }
 
     public bool CheckType(Prism t)
@@ -72,7 +82,11 @@ public class PrismStorage : MonoBehaviour
     {
         if(CurrentPrisms <= 0)
         {
-            Prism = g;
+            Prism = Instantiate(g, transform);
+            Prism.transform.localScale = new Vector3(1, 1, 1); 
+            Prism.name = string.Concat(g.name.Where(char.IsLetter));
+            Prism.SetActive(false);
+            InWorldReference = true;
             StoredType = Prism.GetComponent<PrismType>().GetPrism();
         }
         CurrentPrisms++;
