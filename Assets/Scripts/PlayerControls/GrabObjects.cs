@@ -55,14 +55,22 @@ public class GrabObjects : MonoBehaviour
         }
 
         grabPoint.position = new Vector3(gameObject.transform.position.x + xRD, gameObject.transform.position.y + yRD, gameObject.transform.position.z); //position grabPoint around player
-        RaycastHit2D hitInfo = Physics2D.Raycast(rayPoint.position, dir, rayDistance, LayerMask.GetMask("Objects")); //send raycast out to find objects to pick up
+        RaycastHit2D hitInfo = Physics2D.Raycast(rayPoint.position, dir, rayDistance, LayerMask.GetMask("Objects") + LayerMask.GetMask("Crates")); //send raycast out to find objects to pick up
         
         if (hitInfo.collider != null||grabbedObject!=null)
 		{
             //Debug.Log(hitInfo.collider);
             if (Keyboard.current.spaceKey.wasPressedThisFrame && grabbedObject == null) //if nothing grabbed
             {
-                if (hitInfo.collider.gameObject.GetComponent<ObjectBolter>() == null)
+                if (hitInfo.collider.GetComponent<PrismStorage>() != null)
+                {
+                    grabbedObject = hitInfo.collider.GetComponent<PrismStorage>().SpawnPrism();
+                    grabbedObject.transform.position = grabPoint.position;
+                    grabbedObject.transform.SetParent(grabPoint);
+                    if (grabbedObject.GetComponent<Rigidbody2D>() != null)
+                        grabbedObject.GetComponent<Rigidbody2D>().simulated = false;
+                }
+                else if (hitInfo.collider.gameObject.GetComponent<ObjectBolter>() == null)
                 {
                     grabbedObject = hitInfo.collider.gameObject; //set grabbed to whatever Ray Cast hit
                     grabbedObject.transform.position = grabPoint.position;
@@ -70,18 +78,48 @@ public class GrabObjects : MonoBehaviour
                     if (grabbedObject.GetComponent<Rigidbody2D>() != null)
                         grabbedObject.GetComponent<Rigidbody2D>().simulated = false;
                 }
+                 
             }
             else if (Keyboard.current.spaceKey.wasPressedThisFrame && grabbedObject != null) //else if something grabbed
             {
-                grabbedObject.transform.position = Vector3Int.RoundToInt(grabbedObject.transform.position);
-                grabbedObject.transform.SetParent(null); //release object
-                if (grabbedObject.GetComponent<Rigidbody2D>() != null)
-                    grabbedObject.GetComponent<Rigidbody2D>().simulated = true;
-                grabbedObject = null;
+                
+                CratePutBack();
             }
 		}
 
         Debug.DrawRay(rayPoint.position, dir * rayDistance);
-	}
+
+        if(grabbedObject != null)
+        {
+            Debug.DrawRay(grabPoint.position, dir * rayDistance, Color.cyan);
+
+        }
+    }
+
+    private void CratePutBack()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(grabPoint.position, dir, rayDistance, LayerMask.GetMask("Crates"));
+        Debug.Log(hit.collider);
+        if(hit.collider == null)
+        {
+            grabbedObject.transform.position = Vector3Int.RoundToInt(grabbedObject.transform.position);
+            grabbedObject.transform.SetParent(null); //release object
+            if (grabbedObject.GetComponent<Rigidbody2D>() != null)
+                grabbedObject.GetComponent<Rigidbody2D>().simulated = true;
+            grabbedObject = null;
+            return;
+        }
+
+        PrismStorage storage = hit.collider.GetComponent<PrismStorage>();
+        Prism objType = grabbedObject.GetComponent<PrismType>().GetPrism();
+
+        if(storage != null && storage.CheckType(objType))
+        {
+            storage.PlaceObject(grabbedObject);
+            Destroy(grabbedObject);
+            grabbedObject = null;
+        }
+    }
+    
 
 }

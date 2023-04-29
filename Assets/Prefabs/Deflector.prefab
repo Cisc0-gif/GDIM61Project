@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 314443537299813134}
   - component: {fileID: 6265067664336447532}
   - component: {fileID: 6784927376239846264}
+  - component: {fileID: 4755972024152510531}
   m_Layer: 6
   m_Name: Deflector
   m_TagString: Untagged
@@ -33,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1009079706505697747
 SpriteRenderer:
@@ -171,4 +172,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20701da14de735446aa8a68a087e7d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enterReaction: 0
   DeflectionAngle: 45
+--- !u!114 &4755972024152510531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8079463042204970127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d541538b0a678d41bc753f32fda2d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
