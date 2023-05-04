@@ -12,9 +12,6 @@ public class Laser : MonoBehaviour
     public bool HasBeenSplit;
     [HideInInspector]
     public string MyColor="White";
-
-    private RaycastHit2D lastCollide;
-
     private void Start()
     {
         rend= GetComponent<TrailRenderer>();
@@ -53,9 +50,9 @@ public class Laser : MonoBehaviour
             float max_laser_distance = 5;
             //Will move max_laser_distance units unless it encounters an Object layer collider between that distance.           
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, max_laser_distance, (LayerMask.GetMask("Objects")));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up,max_laser_distance, (LayerMask.GetMask("Objects")));
             RaycastHit2D wallhit = Physics2D.Raycast(transform.position, transform.up, max_laser_distance, (LayerMask.GetMask("Walls"))); //Ferenc
-
+            
             //Check collision with object first
             if (hit.collider != null)
             {
@@ -69,7 +66,6 @@ public class Laser : MonoBehaviour
                     hit.collider.SendMessage("Collide", this, SendMessageOptions.DontRequireReceiver);
                     //The Collide(laser) functon is Duck Typed to all Laser interacting scripts, and will only call here.
                     lastHit = hit.collider.transform.position;
-                    lastCollide = hit;
                     transform.position = hit.collider.transform.position;
                 }
                 else
@@ -84,7 +80,6 @@ public class Laser : MonoBehaviour
                 wallhit.collider.SendMessage("Collide", this, SendMessageOptions.DontRequireReceiver);
                 //The Collide(laser) functon is Duck Typed to all Laser interacting scripts, and will only call here.
                 lastHit = wallhit.collider.transform.position;
-                lastCollide = wallhit;
                 transform.position = wallhit.collider.transform.position;
             }
             else
@@ -95,11 +90,6 @@ public class Laser : MonoBehaviour
             if (Vector2.Distance(Camera.main.transform.position, transform.position) > DeSpawnDistance)
             {
                 DestroyMe();
-            }
-
-            if (hit.collider == null && wallhit.collider == null && lastCollide.collider != null)
-            {
-                lastCollide.collider.SendMessage("DisableLight", this, SendMessageOptions.DontRequireReceiver);
             }
         }
     }

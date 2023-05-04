@@ -11,8 +11,9 @@ public class LaserCollider : MonoBehaviour
     public EnterReaction enterReaction;
     public float DeflectionAngle = 45;
     public bool wall;
+    public bool alwaysLit;
 
-    public bool hit;
+    private float hit;
     private Light2D lightSource;
 
     void Start()
@@ -25,6 +26,7 @@ public class LaserCollider : MonoBehaviour
 
     public void Collide(Laser other)
     {
+        hit += 1;
         EnableLight();
         if (enterReaction == EnterReaction.Deflect)
         {
@@ -37,7 +39,32 @@ public class LaserCollider : MonoBehaviour
         }
     }
 
-    public void EnableLight()
+    void Update()
+    {
+        if (alwaysLit)
+		{
+            EnableLight();
+		}
+        else
+		{
+            if (hit < 0.5f) //value is added and reduced to stay above .5 when lit, else light turns off
+            {
+                DisableLight();
+            }
+
+            if (hit < 0)
+            {
+                hit = 0;
+            }
+            else
+            {
+                hit -= 0.5f;
+            }
+        }
+
+    }
+
+		public void EnableLight()
     {
         if (!wall) {
             lightSource.enabled = true;
