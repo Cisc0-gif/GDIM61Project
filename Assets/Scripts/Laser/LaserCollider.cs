@@ -26,7 +26,7 @@ public class LaserCollider : MonoBehaviour
 
     public void Collide(Laser other)
     {
-        hit += 1;
+        hit += 1; //add hit value to keep light enabled
         EnableLight();
         if (enterReaction == EnterReaction.Deflect)
         {
@@ -52,11 +52,11 @@ public class LaserCollider : MonoBehaviour
                 DisableLight();
             }
 
-            if (hit < 0)
+            if (hit < 0) //stop from going below 0
             {
                 hit = 0;
             }
-            else
+            else //constantly try to approach 0
             {
                 hit -= 0.5f;
             }
