@@ -14,7 +14,6 @@ public class Laser : MonoBehaviour
     public string MyColor="White";
 
     private RaycastHit2D lastCollide;
-    private bool beingHit;
 
     private void Start()
     {
@@ -49,7 +48,6 @@ public class Laser : MonoBehaviour
     }
     void Update()
     {
-
         if (!FinishedLaser)
         {
             float max_laser_distance = 5;
@@ -61,6 +59,7 @@ public class Laser : MonoBehaviour
             //Check collision with object first
             if (hit.collider != null)
             {
+
                 float distance = Vector2.Distance(hit.point, transform.position);
                 if (Vector2.Distance(hit.collider.transform.position, lastHit) > 0.05f)
                 {
@@ -71,7 +70,6 @@ public class Laser : MonoBehaviour
                     //The Collide(laser) functon is Duck Typed to all Laser interacting scripts, and will only call here.
                     lastHit = hit.collider.transform.position;
                     lastCollide = hit;
-                    beingHit = true;
                     transform.position = hit.collider.transform.position;
                 }
                 else
@@ -81,31 +79,27 @@ public class Laser : MonoBehaviour
             }
             else if (wallhit.collider != null) //if no object collided w/ check collision with wall instead (Ferenc)
             {
-                
                 rend.AddPosition(transform.position);
                 rend.AddPosition(wallhit.point);
                 wallhit.collider.SendMessage("Collide", this, SendMessageOptions.DontRequireReceiver);
                 //The Collide(laser) functon is Duck Typed to all Laser interacting scripts, and will only call here.
                 lastHit = wallhit.collider.transform.position;
                 lastCollide = wallhit;
-                beingHit = true;
                 transform.position = wallhit.collider.transform.position;
             }
-			else
-			{
-                beingHit = false;
-                transform.position += transform.up * max_laser_distance;
-            }
-
-            if (lastCollide.collider != null && !beingHit)
+            else
             {
-                lastCollide.collider.SendMessage("DisableLight", SendMessageOptions.DontRequireReceiver);
-                lastCollide = new RaycastHit2D();
+                transform.position += transform.up * max_laser_distance;
             }
 
             if (Vector2.Distance(Camera.main.transform.position, transform.position) > DeSpawnDistance)
             {
                 DestroyMe();
+            }
+
+            if (hit.collider == null && wallhit.collider == null && lastCollide.collider != null)
+            {
+                lastCollide.collider.SendMessage("DisableLight", this, SendMessageOptions.DontRequireReceiver);
             }
         }
     }

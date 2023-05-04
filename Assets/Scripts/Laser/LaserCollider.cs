@@ -12,6 +12,7 @@ public class LaserCollider : MonoBehaviour
     public float DeflectionAngle = 45;
     public bool wall;
 
+    public bool hit;
     private Light2D lightSource;
 
     void Start()
