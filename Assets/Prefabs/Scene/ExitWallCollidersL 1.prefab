@@ -387,6 +387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enterReaction: 1
   DeflectionAngle: 0
+  wall: 1
 --- !u!1 &3260755429904887124
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,6 +561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enterReaction: 1
   DeflectionAngle: 0
+  wall: 1
 --- !u!1 &3957604789354020741
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,7 +880,7 @@ Transform:
   - {fileID: 7728374221237213948}
   - {fileID: 3966599648011817381}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8533855924579878509
 Animator:
@@ -1126,3 +1128,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enterReaction: 1
   DeflectionAngle: 0
+  wall: 1
