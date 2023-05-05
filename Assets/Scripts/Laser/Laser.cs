@@ -12,15 +12,35 @@ public class Laser : MonoBehaviour
     public bool HasBeenSplit;
     [HideInInspector]
     public string MyColor="White";
+
+    private enum deflectColor { Clear, White, Red, Green, Blue };
+    private int currentColor;
+
     private void Start()
     {
         rend= GetComponent<TrailRenderer>();
     }
-    public void SetColor(Gradient g,string colorName)
+
+    public void SetColor(Gradient g, string colorName)
     {
         MyColor = colorName;
-        GetComponent<TrailRenderer>().colorGradient =g;
+        GetComponent<TrailRenderer>().colorGradient = g;
+        switch (MyColor)
+        {
+            case "Red":
+                currentColor = 2;
+                break;
+
+            case "Green":
+                currentColor = 3;
+                break;
+
+            case "Blue":
+                currentColor = 4;
+                break;
+        }
     }
+
     public void DestroyMe()
     {
         if (!FinishedLaser)
@@ -43,10 +63,16 @@ public class Laser : MonoBehaviour
         }
         Destroy(this.gameObject);
     }
+
     void Update()
     {
+        
         if (!FinishedLaser)
         {
+            if (!HasBeenSplit)
+            {
+                currentColor = 1;
+            }
             float max_laser_distance = 5;
             //Will move max_laser_distance units unless it encounters an Object layer collider between that distance.           
 
@@ -64,6 +90,7 @@ public class Laser : MonoBehaviour
                     rend.AddPosition(transform.position);
                     rend.AddPosition(hit.point);
                     hit.collider.SendMessage("Collide", this, SendMessageOptions.DontRequireReceiver);
+                    hit.collider.SendMessage("ChangeSprite", currentColor, SendMessageOptions.DontRequireReceiver);
                     //The Collide(laser) functon is Duck Typed to all Laser interacting scripts, and will only call here.
                     lastHit = hit.collider.transform.position;
                     transform.position = hit.collider.transform.position;
@@ -78,6 +105,7 @@ public class Laser : MonoBehaviour
                 rend.AddPosition(transform.position);
                 rend.AddPosition(wallhit.point);
                 wallhit.collider.SendMessage("Collide", this, SendMessageOptions.DontRequireReceiver);
+                wallhit.collider.SendMessage("ChangeSprite", currentColor, SendMessageOptions.DontRequireReceiver);
                 //The Collide(laser) functon is Duck Typed to all Laser interacting scripts, and will only call here.
                 lastHit = wallhit.collider.transform.position;
                 transform.position = wallhit.collider.transform.position;

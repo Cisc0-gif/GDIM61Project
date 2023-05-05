@@ -54,7 +54,7 @@ public class LaserMerger : MonoBehaviour
     }
     public float dist;
     
-    private void FixedUpdate()
+    private void Update()
     {
         //After the timeout, reset the toggle for any given color.
         if (Time.timeSinceLevelLoad > ttd_red)
