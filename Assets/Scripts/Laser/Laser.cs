@@ -15,7 +15,6 @@ public class Laser : MonoBehaviour
     [HideInInspector]
     public string MyColor="White";
 
-    private enum deflectColor { Clear, White, Red, Green, Blue };
     private int currentColor;
 
     private void Start()
