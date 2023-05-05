@@ -13,11 +13,11 @@ public class LaserCollider : MonoBehaviour
     public bool wall;
     public bool alwaysLit;
 
-    public Sprite[] sprites;
-    public SpriteRenderer spriteRenderer;
-
-    private float hit;
     private Light2D lightSource;
+    private SpriteRenderer spriteRenderer;
+    private float hit;
+    public Sprite[] sprites;
+
 
     void Start()
     {
@@ -25,11 +25,16 @@ public class LaserCollider : MonoBehaviour
             lightSource = GetComponent<Light2D>();
             lightSource.enabled = false;
         }
+
+        if (GetComponent<SpriteRenderer>() != null)
+		{
+            spriteRenderer = GetComponent<SpriteRenderer>();
+		}
 	}
 
     public void Collide(Laser other)
     {
-        if (!other.HasBeenSplit)
+        if (!other.HasBeenSplit && !other.HasBeenMerged)
 		{
             hit += 2.5f;
 		} else

@@ -73,6 +73,7 @@ public class LaserMerger : MonoBehaviour
             GameObject output = Instantiate(LaserPrefab, this.transform.position, Quaternion.Euler((redrot.eulerAngles+bluerot.eulerAngles+greenrot.eulerAngles)/3), this.transform);
             output.GetComponent<TrailRenderer>().AddPosition(this.transform.position);
             output.transform.position += (output.transform.up *dist);
+            output.GetComponent<Laser>().HasBeenMerged = true;
         }
     }
 }

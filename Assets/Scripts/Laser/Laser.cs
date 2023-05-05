@@ -11,6 +11,8 @@ public class Laser : MonoBehaviour
     [HideInInspector]
     public bool HasBeenSplit;
     [HideInInspector]
+    public bool HasBeenMerged;
+    [HideInInspector]
     public string MyColor="White";
 
     private enum deflectColor { Clear, White, Red, Green, Blue };
