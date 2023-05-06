@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,22 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 m_Movement;
 
     //Use for input
+
+    private void Awake()
+    {
+        GameStateManager.Instance.OnGameStateChanged += OnChange;
+        
+    }
+    private void OnDestroy()
+    {
+        GameStateManager.Instance.OnGameStateChanged -= OnChange;
+    }
+
+    private void OnChange(GameState newState)
+    {
+        enabled = newState == GameState.GAMEPLAY;
+        animator.enabled = newState == GameState.GAMEPLAY;
+    }
     void Update()
     {
         m_Movement.x = Input.GetAxisRaw("Horizontal"); //return val between -1 and 1
