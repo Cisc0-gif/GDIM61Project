@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 43c4f6da799e38648827302e19a05878, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ca4ebec0007ba743925369374171c33, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -304,8 +304,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   hit: 0
   sprites:
-  - {fileID: 21300000, guid: 43c4f6da799e38648827302e19a05878, type: 3}
-  - {fileID: 21300000, guid: 03110476569f1e94eaa68d25175c73f7, type: 3}
+  - {fileID: 21300000, guid: 1ca4ebec0007ba743925369374171c33, type: 3}
+  - {fileID: 21300000, guid: 8227433dd9b05a2458403b277ce7b33a, type: 3}
 --- !u!58 &8200958015338370256
 CircleCollider2D:
   m_ObjectHideFlags: 0

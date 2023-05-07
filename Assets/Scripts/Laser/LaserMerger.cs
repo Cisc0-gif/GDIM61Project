@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class LaserMerger : MonoBehaviour
 {
@@ -20,8 +21,21 @@ public class LaserMerger : MonoBehaviour
     private float ttd_blue;
     private float ttd_green;
 
+    private Light2D lightSource;
+    private float hit;
+
     //After TimeOutDelay seconds of no input, the given color will toggle off.
     float TimeOutDelay = 2;
+
+    void Start()
+	{
+        if (GetComponent<Light2D>() != null)
+		{
+            lightSource = GetComponent<Light2D>();
+		}
+        lightSource.enabled = false;
+	}
+
     public void Collide(Laser other)
     {
         //Marks which colors have hit the merger, destroys them afterwards.
@@ -66,6 +80,7 @@ public class LaserMerger : MonoBehaviour
         //Takes a confirmed Red, Green and Blue hit within Timeout Seconds to create a new White Laser output.
         if (RedHits&&GreenHits&&BlueHits)
         {
+            hit += 1.05f;
             RedHits=false;
             GreenHits=false;
             BlueHits=false;
@@ -75,5 +90,22 @@ public class LaserMerger : MonoBehaviour
             output.transform.position += (output.transform.up *dist);
             output.GetComponent<Laser>().HasBeenMerged = true;
         }
+
+        if (hit > 0.5f)
+        {
+            lightSource.enabled = true;
+        } else
+		{
+            lightSource.enabled = false;
+		}
+
+        if (hit < 0)
+		{
+            hit = 0;
+		} else
+		{
+            hit -= 0.5f;
+		}
+
     }
 }
