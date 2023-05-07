@@ -97,6 +97,24 @@ public class LaserCollider : MonoBehaviour
         if (!wall)
         {
             spriteRenderer.sprite = sprites[spriteIndex];
+            switch (spriteIndex)
+			{
+                case 1:
+                    lightSource.color = Color.white;
+                    break;
+
+                case 2:
+                    lightSource.color = Color.red;
+                    break;
+
+                case 3:
+                    lightSource.color = Color.green;
+                    break;
+
+                case 4:
+                    lightSource.color = Color.blue;
+                    break;
+			}
         }
         
 	}
