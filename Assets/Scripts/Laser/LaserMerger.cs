@@ -102,7 +102,11 @@ public class LaserMerger : MonoBehaviour
         if (hit < 0)
 		{
             hit = 0;
-		} else
+		} else if (hit > 2)
+		{
+            hit = 1.05f;
+		}
+        else
 		{
             hit -= 0.5f;
 		}

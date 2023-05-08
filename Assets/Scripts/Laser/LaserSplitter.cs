@@ -65,7 +65,10 @@ public class LaserSplitter : MonoBehaviour
             DisableLight();
             ChangeSprite(0);
             hit = 0;
-        }
+        } else if (hit > 2)
+		{
+            hit = 1f;
+		}
         else
         {
             hit -= 0.5f;

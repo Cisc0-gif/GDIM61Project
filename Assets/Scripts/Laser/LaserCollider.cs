@@ -68,7 +68,11 @@ public class LaserCollider : MonoBehaviour
                     DisableLight();
                     ChangeSprite(0);
                     hit = 0;
-                } else
+                } else if (hit > 5)
+				{
+                    hit = 2.5f;
+				}
+                else
 				{
                     hit -= 0.5f;
 				}

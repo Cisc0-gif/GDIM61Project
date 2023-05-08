@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed = 5;
+    private float moveSpeed = 5f;
 
     [SerializeField]
     private Rigidbody2D rb;
@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
         GameStateManager.Instance.OnGameStateChanged += OnChange;
         
     }
+
     private void OnDestroy()
     {
         GameStateManager.Instance.OnGameStateChanged -= OnChange;
@@ -33,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
         enabled = newState == GameState.GAMEPLAY;
         animator.enabled = newState == GameState.GAMEPLAY;
     }
+
     void Update()
     {
         m_Movement.x = Input.GetAxisRaw("Horizontal"); //return val between -1 and 1
@@ -60,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
 	{
         rb.MovePosition(rb.position + m_Movement.normalized * moveSpeed * Time.fixedDeltaTime); //"Time.fixedDeltaTime"
 	}
+    
 
     public Vector2 GetMovement()
     {
