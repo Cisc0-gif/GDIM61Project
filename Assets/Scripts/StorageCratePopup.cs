@@ -10,6 +10,9 @@ public class StorageCratePopup : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+    [SerializeField]
+    private GameObject textParent;
+
     private GameObject playerPos;
     private Vector3 cratePos;
 
@@ -17,6 +20,7 @@ public class StorageCratePopup : MonoBehaviour
     void Start()
     {
         playerPos = GameObject.Find("Player");
+        textParent.SetActive(false);
     }
 
     // Update is called once per frame
@@ -34,7 +38,44 @@ public class StorageCratePopup : MonoBehaviour
             animator.SetFloat("Distance", -1);
 		}
 
+        /*
+        AnimatorClipInfo[] animClip = animator.GetCurrentAnimatorClipInfo(0); //clip weight = % of clip played
+        int currentFrame = (int)(animClip[0].weight * (animClip[0].clip.length * animClip[0].clip.frameRate)); //% of clip played * (length of clip * frame rate/sample rate)) OR (% * (t * r))
+
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime == 1f)
+		{
+            textParent.SetActive(true);
+        }
+        else
+        {
+            textParent.SetActive(false);
+        }
+
+        if (currentFrame == 0)
+		{
+            textParent.SetActive(true);
+        }
+        else
+        {
+            textParent.SetActive(false);
+        }
+        */
+
         Debug.Log(deltaPos);
         
     }
+
+    public void OnAnimEnd()
+	{
+        if (animator.GetFloat("Distance") == 1)
+		{
+            textParent.SetActive(true);
+            gameObject.transform.parent.gameObject.GetComponent<PrismStorage>().UpdateVisuals();
+        } else
+		{
+            textParent.SetActive(false);
+        }
+        
+    }
+
 }

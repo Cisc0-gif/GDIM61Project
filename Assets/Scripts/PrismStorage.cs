@@ -26,7 +26,7 @@ public class PrismStorage : MonoBehaviour
     private Prism StoredType;
     private bool InWorldReference = false;
 
-    void Start()
+    void OnEnable()
     {
         Canvas canvas = GetComponentInChildren<Canvas>();
         canvas.worldCamera = Camera.main;
@@ -56,13 +56,20 @@ public class PrismStorage : MonoBehaviour
         return prism;
     }
 
-    private void UpdateVisuals()
+    public void UpdateVisuals()
     {
       
         PrismDisplay.enabled = PrismCrateName.enabled = (CurrentPrisms > 0);
         PrismDisplay.sprite = Prism.GetComponent<SpriteRenderer>().sprite;
         PrismCrateName.text = Prism.name;
-        Text.text = $"{CurrentPrisms}";
+        if (CurrentPrisms <= 0)
+		{
+            Text.text = "Crate Empty";
+        } else
+		{
+            Text.text = $"{CurrentPrisms}";
+        }
+        
         if(InWorldReference && CurrentPrisms <= 0)
         {
             Destroy(Prism);
