@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class StorageCratePopup : MonoBehaviour
 {
@@ -15,16 +16,23 @@ public class StorageCratePopup : MonoBehaviour
 
     private GameObject playerPos;
     private Vector3 cratePos;
+    private Light2D lightSource;
 
     // Start is called before the first frame update
     void Start()
     {
         playerPos = GameObject.Find("Player");
-        textParent.SetActive(false);
-    }
+		textParent.SetActive(false);
+        if (GetComponent<Light2D>() != null)
+		{
+            lightSource = GetComponent<Light2D>();
+            lightSource.enabled = false;
+		}
 
-    // Update is called once per frame
-    void Update()
+	}
+
+	// Update is called once per frame
+	void Update()
     {
         cratePos = gameObject.transform.position;
 
@@ -65,15 +73,29 @@ public class StorageCratePopup : MonoBehaviour
         
     }
 
+    public void OnAnimStart()
+	{
+        if (animator.GetFloat("Distance") == 1)
+        {
+            lightSource.enabled = true;
+        }
+        else
+        {
+            lightSource.enabled = false;
+        }
+    }
+
     public void OnAnimEnd()
 	{
         if (animator.GetFloat("Distance") == 1)
 		{
             textParent.SetActive(true);
             gameObject.transform.parent.gameObject.GetComponent<PrismStorage>().UpdateVisuals();
+            lightSource.enabled = true;
         } else
 		{
             textParent.SetActive(false);
+            lightSource.enabled = false;
         }
         
     }

@@ -48,10 +48,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (animator.GetFloat("Horizontal") == -1) //If moving left, flip object
 		{
-            transform.localScale = new Vector3(-2f, 2f, 1);
+            transform.localScale = new Vector3(-1.75f, 1.75f, 1);
 		} else //else if right
 		{
-            transform.localScale = new Vector3(2f, 2f, 1);
+            transform.localScale = new Vector3(1.75f, 1.75f, 1);
         }
 
         animator.SetFloat("Speed", m_Movement.sqrMagnitude); //set speed to square root of length of vector (optimization)
