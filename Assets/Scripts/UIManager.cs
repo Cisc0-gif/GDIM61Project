@@ -49,6 +49,7 @@ public class UIManager : MonoBehaviour
 
         if (pauseMenuParent.activeSelf == true)
         {
+            //Get inputs
             if (Input.GetKeyDown(KeyCode.W))
             {
                 menuTextIndex--;
@@ -57,6 +58,10 @@ public class UIManager : MonoBehaviour
             {
                 menuTextIndex++;
             }
+
+            //Move Y pos to mimic arm movement
+            RectTransform parentPos = pauseMenuParent.GetComponent<RectTransform>();
+            parentPos.anchoredPosition = new Vector2(parentPos.anchoredPosition.x, Mathf.Sin(Time.time) * 3);
         }
         
 
