@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 11
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -476,7 +476,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 12
   m_TargetDisplay: 0
 --- !u!114 &4218111141990925938
 MonoBehaviour:
@@ -687,7 +687,7 @@ Transform:
   - {fileID: 8879759171103098301}
   - {fileID: 1566122483975922744}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8921611301349387243
 SpriteRenderer:
@@ -753,11 +753,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 780c9b8cbcd97dd49b65842bb7b13cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prism: {fileID: 670398268606029624, guid: 1a43cb43662a7c946bad6f612b9f6920, type: 3}
+  Prism: {fileID: 8079463042204970127, guid: 8a8e95e25f2f56c4da746c54ff5e3073, type: 3}
   PrismDisplay: {fileID: 6570927290716622851}
   Text: {fileID: 2722471673738958783}
   PrismCrateName: {fileID: 6109029098760829502}
-  MaxPrisms: 1
+  MaxPrisms: 4
 --- !u!61 &608567596323170431
 BoxCollider2D:
   m_ObjectHideFlags: 0
