@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         m_Movement.y = Input.GetAxisRaw("Vertical");
 
         
-        if (m_Movement != Vector2.zero) {
+        if (m_Movement != Vector2.zero && Time.timeScale > 0) {
             animator.SetFloat("Horizontal", m_Movement.x);
             animator.SetFloat("Vertical", m_Movement.y);
         }

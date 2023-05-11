@@ -73,12 +73,14 @@ public class GameStateManager : MonoBehaviour
 		{
             CurrentGameState = GameState.PAUSED;
             onGamePause();
+            Time.timeScale = 0;
 		}
         else
 		{
             CurrentGameState = GameState.GAMEPLAY;
             onGameUnpause();
-		}
+            Time.timeScale = 1;
+        }
 	}
 
 }
