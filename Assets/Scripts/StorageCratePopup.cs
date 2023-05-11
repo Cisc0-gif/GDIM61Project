@@ -69,7 +69,7 @@ public class StorageCratePopup : MonoBehaviour
         }
         */
 
-        Debug.Log(deltaPos);
+        //Debug.Log(deltaPos);
         
     }
 
