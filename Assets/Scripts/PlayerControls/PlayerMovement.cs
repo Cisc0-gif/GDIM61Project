@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("Vertical", m_Movement.y);
         }
 
+        /*
         if (animator.GetFloat("Horizontal") == -1) //If moving left, flip object
 		{
             transform.localScale = new Vector3(-1.75f, 1.75f, 1);
@@ -53,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
 		{
             transform.localScale = new Vector3(1.75f, 1.75f, 1);
         }
+        */
 
         animator.SetFloat("Speed", m_Movement.sqrMagnitude); //set speed to square root of length of vector (optimization)
     }
