@@ -13,25 +13,25 @@ public class UIManager : MonoBehaviour
     private GameObject pauseMenuBG;
 
     [SerializeField]
-    private TextMeshProUGUI textResume;
-
-    [SerializeField]
-    private TextMeshProUGUI textSettings;
-
-    [SerializeField]
-    private TextMeshProUGUI textQuit;
-
     private List<TextMeshProUGUI> menuText = new List<TextMeshProUGUI>();
-    private int menuTextIndex = 1;
+
+    [SerializeField]
+    private float pauseMenuSpeed;
+    
+    private int menuTextIndex = 0;
+    private GameStateManager GMS;
+    private RectTransform pauseMenuPos;
+    private bool posHit;
 
     // Start is called before the first frame update
     void Start()
     {
         GameStateManager.onGamePause += EnablePauseMenu;
         GameStateManager.onGameUnpause += DisablePauseMenu;
-        menuText.Add(textResume);
-        menuText.Add(textSettings);
-        menuText.Add(textQuit);
+
+        GMS = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
+
+        pauseMenuPos = pauseMenuParent.GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
@@ -50,18 +50,49 @@ public class UIManager : MonoBehaviour
         if (pauseMenuParent.activeSelf == true)
         {
             //Get inputs
-            if (Input.GetKeyDown(KeyCode.W))
+
+            if (Input.GetKeyDown(KeyCode.W)) //UP
             {
                 menuTextIndex--;
             }
-            if (Input.GetKeyDown(KeyCode.S))
+
+            if (Input.GetKeyDown(KeyCode.S)) //DOWN
             {
                 menuTextIndex++;
             }
 
-            //Move Y pos to mimic arm movement
-            RectTransform parentPos = pauseMenuParent.GetComponent<RectTransform>();
-            parentPos.anchoredPosition = new Vector2(parentPos.anchoredPosition.x, Mathf.Sin(Time.time) * 3);
+            if (Input.GetKeyDown(KeyCode.F)) //SELECT
+			{
+                switch(menuTextIndex)
+				{
+                    case 0:
+                        GMS.TogglePause();
+                        break;
+
+                    case 1:
+                        break;
+
+                    case 2:
+                        Application.Quit();
+                        break;
+				}
+			}
+
+
+            if (pauseMenuPos.anchoredPosition.x < 1 && !posHit)
+            {
+                pauseMenuPos.anchoredPosition = new Vector3(pauseMenuPos.anchoredPosition.x + 3.5f, pauseMenuPos.anchoredPosition.y, 0);
+            }
+            if (pauseMenuPos.anchoredPosition.y < -1 && !posHit)
+			{
+                pauseMenuPos.anchoredPosition = new Vector3(pauseMenuPos.anchoredPosition.x, pauseMenuPos.anchoredPosition.y + 3.5f, 0);
+			}
+            else
+			{
+                posHit = true;
+                //Move Y pos to mimic arm movement
+                pauseMenuPos.anchoredPosition = new Vector2(pauseMenuPos.anchoredPosition.x, Mathf.Sin(Time.realtimeSinceStartup) * pauseMenuSpeed);
+            }
         }
         
 
@@ -82,12 +113,15 @@ public class UIManager : MonoBehaviour
 	{
         pauseMenuParent.SetActive(true);
         pauseMenuBG.SetActive(true);
-	}
+        //pauseMenuParent.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.844207764f, -1.31155396f, 0);
+    }
 
     public void DisablePauseMenu()
 	{
         pauseMenuParent.SetActive(false);
         pauseMenuBG.SetActive(false);
+        pauseMenuPos.anchoredPosition = new Vector3(-328.199982f, -286.898926f, 0);
+        posHit = false;
     }
 
 }
