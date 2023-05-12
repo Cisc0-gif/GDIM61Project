@@ -7,9 +7,9 @@ using UnityEngine.Rendering.Universal;
 public class LaserSplitter : MonoBehaviour
 {
     public GameObject LaserPrefab;
-    public float Output1_DeflectionAngle=45;
+    public float Output1_DeflectionAngle = 45;
     public float Output2_DeflectionAngle = -45;
-    public float Output3_DeflectionAngle=0;
+    public float Output3_DeflectionAngle = 0;
     public Gradient Red;
     public Gradient Blue;
     public Gradient Green;
@@ -35,8 +35,8 @@ public class LaserSplitter : MonoBehaviour
 
     public void Collide(Laser other)
     {
+        hit += 10f;
         EnableLight();
-        hit += 1f;
         if (!other.HasBeenSplit)
         {
             //Split the beam into its three sub parts, Red Blue and Green.
@@ -65,10 +65,11 @@ public class LaserSplitter : MonoBehaviour
             DisableLight();
             ChangeSprite(0);
             hit = 0;
-        } else if (hit > 2)
-		{
-            hit = 1f;
-		}
+        }
+        else if (hit > 5)
+        {
+            hit = 5f;
+        }
         else
         {
             hit -= 0.5f;

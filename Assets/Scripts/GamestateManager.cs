@@ -44,6 +44,12 @@ public class GameStateManager : MonoBehaviour
         OnGameStateChanged?.Invoke(newGameState);
     }
 
+    public void Start()
+	{
+        Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 1;
+	}
+
     public void Update()
 	{
         if (Input.GetKeyDown(KeyCode.Escape))

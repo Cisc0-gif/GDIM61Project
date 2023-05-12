@@ -33,6 +33,8 @@ public class LaserCollider : MonoBehaviour
 
     public void Collide(Laser other)
     {
+        hit += 10f;
+        /*
         if (!other.HasBeenSplit && !other.HasBeenMerged)
 		{
             hit += 2.5f;
@@ -40,6 +42,7 @@ public class LaserCollider : MonoBehaviour
 		{
             hit += 1;
 		}
+        */
         //hit += 1; //add hit value to keep light enabled
         EnableLight();
         if (enterReaction == EnterReaction.Deflect)
@@ -70,7 +73,7 @@ public class LaserCollider : MonoBehaviour
                     hit = 0;
                 } else if (hit > 5)
 				{
-                    hit = 2.5f;
+                    hit = 5f;
 				}
                 else
 				{
