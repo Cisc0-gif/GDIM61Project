@@ -95,5 +95,5 @@ public class GameStateManager : MonoBehaviour
 [System.Serializable]
 public enum GameState
 {
-    GAMEPLAY, PAUSED, DIALOUGE
+    GAMEPLAY, PAUSED, DIALOUGE, TRANSITION
 }
