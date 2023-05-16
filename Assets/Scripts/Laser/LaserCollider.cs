@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -98,30 +99,38 @@ public class LaserCollider : MonoBehaviour
             lightSource.enabled = false;
         }
 	}
+    bool AllowSpriteSwitch(Color current,Color target)
+    {
+        return Vector3.Distance(new Vector3(current.r, current.g, current.b) * 100, new Vector3(target.r, target.g, target.b) * 100) <20;
+    }
+    Color FetchTargetColor(int spriteIndex)
+    {
+        switch (spriteIndex)
+        {
+            case 1:
+                return Color.white;
 
+            case 2:
+                return Color.red;
+
+            case 3:
+                return Color.green;
+
+            case 4:
+                return Color.blue;
+        }
+        return Color.black;
+        //Fail Color is Black so we will notice.
+    }
     void ChangeSprite(int spriteIndex)
 	{
         if (!wall)
         {
-            spriteRenderer.sprite = sprites[spriteIndex];
-            switch (spriteIndex)
-			{
-                case 1:
-                    lightSource.color = Color.white;
-                    break;
+            Color target=FetchTargetColor(spriteIndex);
+            if(spriteRenderer.sprite==sprites[0] || AllowSpriteSwitch(lightSource.color,target))
+                spriteRenderer.sprite = sprites[spriteIndex];
+            lightSource.color = Color.Lerp(lightSource.color, target, 0.25f);
 
-                case 2:
-                    lightSource.color = Color.red;
-                    break;
-
-                case 3:
-                    lightSource.color = Color.green;
-                    break;
-
-                case 4:
-                    lightSource.color = Color.blue;
-                    break;
-			}
         }
         
 	}

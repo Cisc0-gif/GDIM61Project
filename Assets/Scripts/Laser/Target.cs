@@ -24,6 +24,10 @@ public class Target : MonoBehaviour
         Activated = true;
         TimeTillDeactivate = Time.timeSinceLevelLoad + TimeOutDelay;
     }
+    public void DeActivate()
+    {
+        Activated = false;
+    }
     public void Collide(Laser other)
     {
         if (targetType==TargetType.Only_White&&!other.HasBeenSplit)
@@ -53,7 +57,7 @@ public class Target : MonoBehaviour
         //Target Timeout
         if(Activated&&Time.timeSinceLevelLoad>TimeTillDeactivate)
         {
-            Activated = false;
+            DeActivate();
         }
 
         //On/Off visibility controlled here
