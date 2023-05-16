@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UIElements;
 
 public class Target : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class Target : MonoBehaviour
     //TargetType controls what colors will toggle the target.
     [HideInInspector]
     public bool Activated;
+
+    [HideInInspector]
+    public bool ActivatedLight;
     private float TimeTillDeactivate;
     public Sprite Pressed;
     private Sprite Unpressed;
@@ -17,30 +21,63 @@ public class Target : MonoBehaviour
     private Light2D lightSource;
     //After TimeOutDelay seconds of no input, the target will toggle off.
     float TimeOutDelay=2;
+    float MaxLight;
     private void Start()
     {
         lightSource= GetComponent<Light2D>();
         Unpressed = GetComponent<SpriteRenderer>().sprite;
+        MaxLight = 1/ GameObject.FindObjectsOfType<Target>().Length;
+
     }
     public void Activate()
     {
-        if(!Activated)
+        bool AllOtherOn=true;
+        foreach (Target t in GameObject.FindObjectsOfType<Target>())
         {
-            foreach(LevelDoor door in GameObject.FindObjectsOfType<LevelDoor>())
+            if(t!=this&&!t.Activated)
             {
-                door.ToggleDoor();
+                AllOtherOn = false;
+                break;
             }
+        }
+        if (AllOtherOn)
+        {
+            if (!Activated)
+            {
+                foreach (LevelDoor door in GameObject.FindObjectsOfType<LevelDoor>())
+                {
+                    door.ToggleDoor();
+                }
+                foreach (Target t in GameObject.FindObjectsOfType<Target>())
+                    t.ActivatedLight = true;
+            }
+
         }
         Activated = true;
         TimeTillDeactivate = Time.timeSinceLevelLoad + TimeOutDelay;
     }
     public void DeActivate()
     {
-        if (Activated)
+        bool AllOtherOn = true;
+        foreach (Target t in GameObject.FindObjectsOfType<Target>())
         {
-            foreach (LevelDoor door in GameObject.FindObjectsOfType<LevelDoor>())
+            if (t != this && !t.Activated)
             {
-                door.ToggleDoor();
+                AllOtherOn = false;
+                break;
+            }
+        }
+        if (AllOtherOn)
+        {
+            if (Activated)
+            {
+                foreach (LevelDoor door in GameObject.FindObjectsOfType<LevelDoor>())
+                {
+                    door.ToggleDoor();
+                }
+
+                foreach (Target t in GameObject.FindObjectsOfType<Target>())
+                    t.ActivatedLight = false;
             }
         }
       
@@ -77,12 +114,15 @@ public class Target : MonoBehaviour
         {
             if(Time.timeSinceLevelLoad > TimeTillDeactivate)
                 DeActivate();
-
-            lightSource.intensity = Mathf.Min(1, lightSource.intensity+0.25f);
+            
         }
-        else
-            lightSource.intensity=Mathf.Max(0,lightSource.intensity/2f);
-
+            if(Activated&& ActivatedLight)
+            {
+                lightSource.intensity = Mathf.Min(MaxLight, lightSource.intensity + 0.25f);
+            }
+            else
+                lightSource.intensity = Mathf.Max(0, lightSource.intensity / 2f);
+        
 
         //On/Off visibility controlled here
         if (Activated)
