@@ -65,10 +65,14 @@ public class GrabObjects : MonoBehaviour
                 if (hitInfo.collider.GetComponent<PrismStorage>() != null)
                 {
                     grabbedObject = hitInfo.collider.GetComponent<PrismStorage>().SpawnPrism();
-                    grabbedObject.transform.position = grabPoint.position;
-                    grabbedObject.transform.SetParent(grabPoint);
-                    if (grabbedObject.GetComponent<Rigidbody2D>() != null)
-                        grabbedObject.GetComponent<Rigidbody2D>().simulated = false;
+                    if (grabbedObject != null)
+                    {
+
+                        grabbedObject.transform.position = grabPoint.position;
+                        grabbedObject.transform.SetParent(grabPoint);
+                        if (grabbedObject.GetComponent<Rigidbody2D>() != null)
+                            grabbedObject.GetComponent<Rigidbody2D>().simulated = false;
+                    }
                 }
                 else if (hitInfo.collider.gameObject.GetComponent<ObjectBolter>() == null)
                 {
@@ -85,22 +89,29 @@ public class GrabObjects : MonoBehaviour
                 CratePutBack(hitInfo);
             }
 		}
-
         Debug.DrawRay(rayPoint.position, dir * rayDistance);
 
     }
 
     private void CratePutBack(RaycastHit2D hit)
     {
-        
-        if(hit.collider == null)
+
+        if (hit.collider == null)
         {
+            //Failsafe cancel to eliminate any overlap issues
+            foreach (PrismType prism in GameObject.FindObjectsOfType<PrismType>())
+            {
+                if (prism.gameObject != grabbedObject.gameObject&&Vector3.Distance(prism.transform.position, (Vector3Int.RoundToInt(grabbedObject.transform.position)))<0.25f)
+                    return;
+            }
             grabbedObject.transform.position = Vector3Int.RoundToInt(grabbedObject.transform.position);
             grabbedObject.transform.SetParent(null); //release object
             if (grabbedObject.GetComponent<Rigidbody2D>() != null)
                 grabbedObject.GetComponent<Rigidbody2D>().simulated = true;
             grabbedObject = null;
+
             return;
+
         }
 
         PrismStorage storage = hit.collider.GetComponent<PrismStorage>();

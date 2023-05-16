@@ -109,7 +109,7 @@ public class Laser : MonoBehaviour
                 wallhit.collider.SendMessage("ChangeSprite", currentColor, SendMessageOptions.DontRequireReceiver);
                 //The Collide(laser) functon is Duck Typed to all Laser interacting scripts, and will only call here.
                 lastHit = wallhit.collider.transform.position;
-                transform.position = wallhit.collider.transform.position;
+                //transform.position = wallhit.collider.transform.position;
             }
             else
             {

@@ -36,7 +36,7 @@ public class SceneTransition : MonoBehaviour
     }
     void Start()
     {
-        
+        GetComponent<Canvas>().enabled = true;   
     }
 
     

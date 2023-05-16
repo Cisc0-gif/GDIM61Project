@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Target : MonoBehaviour
 {
@@ -13,19 +14,36 @@ public class Target : MonoBehaviour
     private Sprite Unpressed;
     public TargetType targetType;
 
+    private Light2D lightSource;
     //After TimeOutDelay seconds of no input, the target will toggle off.
     float TimeOutDelay=2;
     private void Start()
     {
+        lightSource= GetComponent<Light2D>();
         Unpressed = GetComponent<SpriteRenderer>().sprite;
     }
     public void Activate()
     {
+        if(!Activated)
+        {
+            foreach(LevelDoor door in GameObject.FindObjectsOfType<LevelDoor>())
+            {
+                door.ToggleDoor();
+            }
+        }
         Activated = true;
         TimeTillDeactivate = Time.timeSinceLevelLoad + TimeOutDelay;
     }
     public void DeActivate()
     {
+        if (Activated)
+        {
+            foreach (LevelDoor door in GameObject.FindObjectsOfType<LevelDoor>())
+            {
+                door.ToggleDoor();
+            }
+        }
+      
         Activated = false;
     }
     public void Collide(Laser other)
@@ -55,10 +73,16 @@ public class Target : MonoBehaviour
     private void FixedUpdate()
     {
         //Target Timeout
-        if(Activated&&Time.timeSinceLevelLoad>TimeTillDeactivate)
+        if(Activated)
         {
-            DeActivate();
+            if(Time.timeSinceLevelLoad > TimeTillDeactivate)
+                DeActivate();
+
+            lightSource.intensity = Mathf.Min(1, lightSource.intensity+0.25f);
         }
+        else
+            lightSource.intensity=Mathf.Max(0,lightSource.intensity/2f);
+
 
         //On/Off visibility controlled here
         if (Activated)
