@@ -1403,6 +1403,10 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 3626898202927526074, guid: 58836ec3e97064e479e7dfe1fd10763e, type: 3}
+      propertyPath: MaxPrisms
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3713018522633306520, guid: 58836ec3e97064e479e7dfe1fd10763e, type: 3}
       propertyPath: m_RootOrder
       value: 2
