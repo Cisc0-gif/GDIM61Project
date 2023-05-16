@@ -133,7 +133,7 @@ MonoBehaviour:
   RedHits: 0
   GreenHits: 0
   BlueHits: 0
-  dist: 0.6
+  dist: 0.05
 --- !u!60 &6564856494682839172
 PolygonCollider2D:
   m_ObjectHideFlags: 0

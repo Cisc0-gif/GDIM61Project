@@ -8007,11 +8007,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7251935967242739313, guid: adeb3915cc5d6e943bba7901d9f8e4f6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: -6.58
       objectReference: {fileID: 0}
     - target: {fileID: 7251935967242739313, guid: adeb3915cc5d6e943bba7901d9f8e4f6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.19
+      value: -6.79
       objectReference: {fileID: 0}
     - target: {fileID: 7251935967242739313, guid: adeb3915cc5d6e943bba7901d9f8e4f6, type: 3}
       propertyPath: m_LocalPosition.z
