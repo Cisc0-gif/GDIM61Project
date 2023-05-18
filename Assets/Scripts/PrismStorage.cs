@@ -26,14 +26,27 @@ public class PrismStorage : MonoBehaviour
     private Prism StoredType;
     private bool InWorldReference = false;
 
+    [SerializeField]
+    private Sprite[] sprites;
+
+    private SpriteRenderer spriteRenderer;
+    private Vector3 textOriginalPos;
+
+    void Start()
+	{
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        UpdateVisuals();
+        textOriginalPos = new Vector3(0, -0.674999952f, 0);
+
+    }
+
     void OnEnable()
     {
         Canvas canvas = GetComponentInChildren<Canvas>();
         canvas.worldCamera = Camera.main;
         CurrentPrisms = MaxPrisms;
         StoredType = Prism.GetComponent<PrismType>().GetPrism();
-
-        UpdateVisuals();
+        //UpdateVisuals();
     }
 
    
@@ -64,10 +77,14 @@ public class PrismStorage : MonoBehaviour
         PrismCrateName.text = Prism.name;
         if (CurrentPrisms <= 0)
 		{
+            spriteRenderer.sprite = sprites[0]; //off face
             Text.text = "Crate Empty";
+            Text.GetComponent<RectTransform>().localPosition = Vector3.zero;
         } else
 		{
+            spriteRenderer.sprite = sprites[1]; //on face
             Text.text = $"{CurrentPrisms}";
+            Text.GetComponent<RectTransform>().localPosition = textOriginalPos;
         }
         
         if(InWorldReference && CurrentPrisms <= 0)

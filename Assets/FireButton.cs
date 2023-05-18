@@ -5,17 +5,23 @@ using UnityEngine;
 
 public class FireButton : MonoBehaviour
 {
+
+    [SerializeField]
+    private CameraFollow followCam;
+
     public GameObject Forcefeld;
     private ParticleSystem system;
     private Collider2D fcollider;
     public static bool ButtonState;
     public bool InitState = false;
+
     void Start()
     {
         system= Forcefeld.GetComponent<ParticleSystem>();
         fcollider= Forcefeld.GetComponent<Collider2D>();
         ButtonState = InitState;
     }
+
     public void ToggleButton()
     {
         if (!ButtonState)
@@ -29,8 +35,10 @@ public class FireButton : MonoBehaviour
             StartCoroutine(DeToggle());
         }
     }
+
     bool canClick;
     bool deToggling;
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.GetComponent<PlayerMovement>() != null)
@@ -38,6 +46,7 @@ public class FireButton : MonoBehaviour
             canClick = true;
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.GetComponent<PlayerMovement>() != null)
@@ -46,12 +55,14 @@ public class FireButton : MonoBehaviour
         }
         
     }
+
     public IEnumerator DeToggle()
     {
         while(Camera.main.GetComponentInChildren<Laser>() != null)
             yield return new WaitForSeconds(0.25f);
         deToggling = false;
     }
+
     void Update()
     {
         if (!deToggling)
@@ -59,10 +70,12 @@ public class FireButton : MonoBehaviour
             fcollider.enabled = (ButtonState);
             if (!(ButtonState) && system.isPlaying)
             {
+                followCam.UncenterCam();
                 system.Stop();
             }
             if ((ButtonState) && system.isStopped)
             {
+                followCam.CenterCam();
                 system.Play();
             }
 

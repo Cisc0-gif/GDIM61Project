@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class UIManager : MonoBehaviour
@@ -17,6 +18,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private float pauseMenuSpeed;
+
+    [SerializeField]
+    private float pauseMenuMoveRate;
     
     private int menuTextIndex = 0;
     private GameStateManager GMS;
@@ -61,7 +65,7 @@ public class UIManager : MonoBehaviour
                 menuTextIndex++;
             }
 
-            if (Input.GetKeyDown(KeyCode.F)) //SELECT
+            if (Input.GetButtonDown("Jump")) //SELECT
 			{
                 switch(menuTextIndex)
 				{
@@ -81,11 +85,11 @@ public class UIManager : MonoBehaviour
 
             if (pauseMenuPos.anchoredPosition.x < 1 && !posHit)
             {
-                pauseMenuPos.anchoredPosition = new Vector3(pauseMenuPos.anchoredPosition.x + 3.5f, pauseMenuPos.anchoredPosition.y, 0);
+                pauseMenuPos.anchoredPosition = new Vector3(pauseMenuPos.anchoredPosition.x + pauseMenuMoveRate, pauseMenuPos.anchoredPosition.y, 0);
             }
             if (pauseMenuPos.anchoredPosition.y < -1 && !posHit)
 			{
-                pauseMenuPos.anchoredPosition = new Vector3(pauseMenuPos.anchoredPosition.x, pauseMenuPos.anchoredPosition.y + 3.5f, 0);
+                pauseMenuPos.anchoredPosition = new Vector3(pauseMenuPos.anchoredPosition.x, pauseMenuPos.anchoredPosition.y + pauseMenuMoveRate, 0);
 			}
             else
 			{
@@ -108,6 +112,7 @@ public class UIManager : MonoBehaviour
         Debug.Log(menuTextIndex);
         
     }
+
 
     public void EnablePauseMenu()
 	{

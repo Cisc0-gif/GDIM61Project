@@ -730,7 +730,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3a22a84f114827b41a392dc29470ff89, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ce555f15d92c15440a573c429d8cbac4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -758,6 +758,9 @@ MonoBehaviour:
   Text: {fileID: 2722471673738958783}
   PrismCrateName: {fileID: 6109029098760829502}
   MaxPrisms: 9
+  sprites:
+  - {fileID: 21300000, guid: ce555f15d92c15440a573c429d8cbac4, type: 3}
+  - {fileID: 21300000, guid: 166faf2d3273cb54ab2ee6c516f575f3, type: 3}
 --- !u!61 &608567596323170431
 BoxCollider2D:
   m_ObjectHideFlags: 0
