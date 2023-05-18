@@ -1356,7 +1356,7 @@ GameObject:
   - component: {fileID: 543808570}
   - component: {fileID: 543808569}
   m_Layer: 5
-  m_Name: Settings (TMP)
+  m_Name: Activate (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1402,7 +1402,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Settings
+  m_text: Activate
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: da3a68c745b77f244a320dbeffe93baa, type: 2}
   m_sharedMaterial: {fileID: 6902496486212366486, guid: da3a68c745b77f244a320dbeffe93baa, type: 2}
