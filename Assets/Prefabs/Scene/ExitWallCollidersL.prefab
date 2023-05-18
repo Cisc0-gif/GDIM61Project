@@ -692,7 +692,7 @@ Transform:
   - {fileID: 6811960699981887812}
   - {fileID: 8872422331749043486}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4115612374676331240
 Animator:
@@ -779,6 +779,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211df51b45ca03845b197e982f2d1d33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lightSource: {fileID: 5491389063267364945}
+  EntranceDoor: 1
   OpenState: 1
   AlwaysOpen: 1
   Collision: {fileID: 176380089517189640}
