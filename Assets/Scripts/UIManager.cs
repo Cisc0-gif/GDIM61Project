@@ -109,7 +109,6 @@ public class UIManager : MonoBehaviour
 		{
             menuTextIndex = menuText.Count-1;
 		}
-        Debug.Log(menuTextIndex);
         
     }
 

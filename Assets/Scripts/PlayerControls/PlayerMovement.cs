@@ -46,16 +46,6 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("Vertical", m_Movement.y);
         }
 
-        /*
-        if (animator.GetFloat("Horizontal") == -1) //If moving left, flip object
-		{
-            transform.localScale = new Vector3(-1.75f, 1.75f, 1);
-		} else //else if right
-		{
-            transform.localScale = new Vector3(1.75f, 1.75f, 1);
-        }
-        */
-
         animator.SetFloat("Speed", m_Movement.sqrMagnitude); //set speed to square root of length of vector (optimization)
     }
 
@@ -71,4 +61,12 @@ public class PlayerMovement : MonoBehaviour
         return m_Movement;
     }
 
+    public void StopHorrizontalMovement()
+    {
+        m_Movement.x = 0;
+    }
+    public void StopVertialMovement()
+    {
+        m_Movement.y = 0;
+    }
 }

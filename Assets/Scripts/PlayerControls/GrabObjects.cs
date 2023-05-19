@@ -16,12 +16,16 @@ public class GrabObjects : MonoBehaviour
     private float rayDistance;
 
     private GameObject grabbedObject;
-    private Vector3 dir;
     //private RaycastHit2D hitInfo;
+    private WallCheck check;
+    [SerializeField]
+    private LayerMask HeldObjLayer;
+    private LayerMask HeldObjStored;
 
     private void Start()
 	{
         Physics2D.queriesStartInColliders = false; //start ray outside of BoxCollider
+        check = GetComponentInChildren<WallCheck>();
 	}
 
     void Update()
@@ -30,6 +34,7 @@ public class GrabObjects : MonoBehaviour
         float xRD = 0f;
         float yRD = 0f;
 
+        #region Animation Flips
         //Horizontal
         if (gameObject.GetComponent<Animator>().GetFloat("Horizontal") == 1) //if gameObject not flipped (moving Left!)
 		{
@@ -53,6 +58,9 @@ public class GrabObjects : MonoBehaviour
             dir = -Vector3.up;
             yRD = -rayDistance - 0.25f;
         }
+        #endregion
+
+
 
         grabPoint.position = new Vector3(gameObject.transform.position.x + xRD, gameObject.transform.position.y + yRD, gameObject.transform.position.z); //position grabPoint around player
         RaycastHit2D hitInfo = Physics2D.Raycast(rayPoint.position, dir, rayDistance, LayerMask.GetMask("Objects") + LayerMask.GetMask("Crates")); //send raycast out to find objects to pick up
@@ -71,7 +79,11 @@ public class GrabObjects : MonoBehaviour
                         grabbedObject.transform.position = grabPoint.position;
                         grabbedObject.transform.SetParent(grabPoint);
                         if (grabbedObject.GetComponent<Rigidbody2D>() != null)
+                        {
+                            HeldObjStored = grabbedObject.layer;
+                            grabbedObject.layer = HeldObjLayer;
                             grabbedObject.GetComponent<Rigidbody2D>().simulated = false;
+                        }
                     }
                 }
                 else if (hitInfo.collider.gameObject.GetComponent<ObjectBolter>() == null)
@@ -80,7 +92,11 @@ public class GrabObjects : MonoBehaviour
                     grabbedObject.transform.position = grabPoint.position;
                     grabbedObject.transform.SetParent(grabPoint);
                     if (grabbedObject.GetComponent<Rigidbody2D>() != null)
+                    {
+                        HeldObjStored = grabbedObject.layer;
+                        grabbedObject.layer = HeldObjLayer;
                         grabbedObject.GetComponent<Rigidbody2D>().simulated = false;
+                    }
                 }
                  
             }
@@ -89,6 +105,7 @@ public class GrabObjects : MonoBehaviour
                 CratePutBack(hitInfo);
             }
 		}
+        check.HeldObject = grabbedObject;
         Debug.DrawRay(rayPoint.position, dir * rayDistance);
 
     }
@@ -106,8 +123,12 @@ public class GrabObjects : MonoBehaviour
             }
             grabbedObject.transform.position = Vector3Int.RoundToInt(grabbedObject.transform.position);
             grabbedObject.transform.SetParent(null); //release object
+
             if (grabbedObject.GetComponent<Rigidbody2D>() != null)
+            {
                 grabbedObject.GetComponent<Rigidbody2D>().simulated = true;
+                grabbedObject.layer = HeldObjStored;
+            }
             grabbedObject = null;
 
             return;
@@ -125,5 +146,9 @@ public class GrabObjects : MonoBehaviour
         }
     }
     
+    private void CheckForWall()
+    {
+        
+    }
 
 }

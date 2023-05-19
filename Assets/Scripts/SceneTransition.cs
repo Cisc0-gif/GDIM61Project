@@ -10,14 +10,19 @@ public class SceneTransition : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+            Debug.Log("NO Instance Found");
+        else
+            Debug.Log($"Instance is this {Instance.gameObject.name}");
+
         if(Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            
         }
-        else
-        {
-            DontDestroyOnLoad(gameObject);
-        }
+        
+        DontDestroyOnLoad(gameObject);
+        
 
         SceneManager.sceneLoaded += EnterSceneTransition;
     }
@@ -34,22 +39,14 @@ public class SceneTransition : MonoBehaviour
 
        
     }
-    void Start()
-    {
-        GetComponent<Canvas>().enabled = true;   
-    }
-
-    
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+   
    
     public IEnumerator LeaveScene(int Index)
     {
+        if(Index > SceneManager.GetActiveScene().buildIndex)
+        {
+            LevelManager.Instance.ChangeState(Index - 1, true);
+        }
         animator.SetTrigger("Leave");
         Transitioning = true;
         yield return new WaitUntil(() => Transitioning == false);

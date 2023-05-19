@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 public class LevelDoor : MonoBehaviour
 {
@@ -19,6 +20,13 @@ public class LevelDoor : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+        int LevelIndex = SceneManager.GetActiveScene().buildIndex;
+        Debug.Log(LevelIndex);
+        if (!EntranceDoor)
+        {
+            OpenState = LevelManager.Instance.CompletedLevels[LevelIndex];
+        }
+        
         Synchronize();
     }
 

@@ -19,6 +19,8 @@ public class LaserCollider : MonoBehaviour
     private float hit;
     public Sprite[] sprites;
 
+    private bool IsPickedUp = false;
+
     void Start()
     {
         if (GetComponent<Light2D>() != null) {
@@ -134,5 +136,7 @@ public class LaserCollider : MonoBehaviour
         }
         
 	}
+
+    
 
 }
