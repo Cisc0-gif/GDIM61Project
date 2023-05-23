@@ -914,7 +914,7 @@ MonoBehaviour:
   - {fileID: 543808569}
   - {fileID: 471207092}
   pauseMenuSpeed: 2
-  pauseMenuMoveRate: 0
+  pauseMenuMoveRate: 7.5
 --- !u!1 &431050291
 GameObject:
   m_ObjectHideFlags: 0
