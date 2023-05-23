@@ -10,6 +10,9 @@ public class GameStateManager : MonoBehaviour
     [SerializeField]
     private List<string> m_roomNames = new List<string>();
 
+    [SerializeField]
+    private UIManager uiManager;
+
     public delegate void OnGamePause();
     public delegate void OnGameUnpause();
     public static OnGamePause onGamePause;
@@ -78,13 +81,13 @@ public class GameStateManager : MonoBehaviour
         if (CurrentGameState == GameState.GAMEPLAY)
 		{
             CurrentGameState = GameState.PAUSED;
-            onGamePause();
+            uiManager.EnablePauseMenu();
             Time.timeScale = 0;
 		}
         else
 		{
             CurrentGameState = GameState.GAMEPLAY;
-            onGameUnpause();
+            uiManager.DisablePauseMenu();
             Time.timeScale = 1;
         }
 	}

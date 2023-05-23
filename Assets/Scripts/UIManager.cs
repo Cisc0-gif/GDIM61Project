@@ -30,17 +30,15 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameStateManager.onGamePause += EnablePauseMenu;
-        GameStateManager.onGameUnpause += DisablePauseMenu;
-
         GMS = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
-
         pauseMenuPos = pauseMenuParent.GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        GameStateManager.onGamePause += EnablePauseMenu;
+        GameStateManager.onGameUnpause += DisablePauseMenu;
         //Update selected text color
         for (int i = 0; i < menuText.Count; i++)
 		{

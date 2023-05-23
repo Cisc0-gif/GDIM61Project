@@ -3109,6 +3109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_roomNames: []
+  uiManager: {fileID: 423820847}
 --- !u!4 &1097652636
 Transform:
   m_ObjectHideFlags: 0

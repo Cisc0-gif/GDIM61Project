@@ -1195,7 +1195,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 27.662, y: -6.287, z: 1.721}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 49.33078, y: -83.9167}
+  m_AnchoredPosition: {x: 49.33078, y: -65.071915}
   m_SizeDelta: {x: 40.32, y: 13.13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &471207092
@@ -1661,7 +1661,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 27.662, y: -6.287, z: 1.721}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 49.33078, y: -68.7867}
+  m_AnchoredPosition: {x: 49.33078, y: -49.94191}
   m_SizeDelta: {x: 82.51, y: 13.13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &543808569
@@ -3032,6 +3032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_roomNames: []
+  uiManager: {fileID: 423820847}
 --- !u!4 &1097652636
 Transform:
   m_ObjectHideFlags: 0
@@ -8041,7 +8042,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 27.662, y: -6.287, z: 1.721}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 49.33078, y: -53.656696}
+  m_AnchoredPosition: {x: 49.33078, y: -34.81191}
   m_SizeDelta: {x: 66.57, y: 13.13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1931836244
