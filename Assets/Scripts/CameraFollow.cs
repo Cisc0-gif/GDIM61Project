@@ -38,7 +38,10 @@ public class CameraFollow : MonoBehaviour
         {
             if (target != null)
             {
-                OrthoCam.orthographicSize = followSize;
+                if (OrthoCam.orthographicSize > followSize)
+				{
+                    OrthoCam.orthographicSize -= .1f;
+				}
                 float xTo = target.transform.position.x;
                 float yTo = target.transform.position.y;
                 gameObject.transform.position = new Vector3(gameObject.transform.position.x + (xTo - gameObject.transform.position.x) / trackRate, gameObject.transform.position.y + (yTo - gameObject.transform.position.y) / trackRate, transform.position.z);
@@ -46,7 +49,10 @@ public class CameraFollow : MonoBehaviour
         }
         else
 		{
-            OrthoCam.orthographicSize = centerSize;
+            if (OrthoCam.orthographicSize < centerSize)
+            {
+                OrthoCam.orthographicSize += .1f;
+            }
             //gameObject.transform.position = new Vector3(0, 0, -10);
             gameObject.transform.position = new Vector3(gameObject.transform.position.x + ((0 + centerOffset.x) - gameObject.transform.position.x) / trackRate, gameObject.transform.position.y + ((0 + centerOffset.y) - gameObject.transform.position.y) / trackRate, -10);
         }
