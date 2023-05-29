@@ -14,6 +14,9 @@ public class FireButton : MonoBehaviour
     private Collider2D fcollider;
     public static bool ButtonState;
     public bool InitState = false;
+    public AudioSource buttonPress;
+    public AudioSource forceField;
+    public AudioSource forceFieldOpen;
 
     void Start()
     {
@@ -24,15 +27,22 @@ public class FireButton : MonoBehaviour
 
     public void ToggleButton()
     {
+        
         if (!ButtonState)
         {
+            buttonPress.Play();
+            forceFieldOpen.Play();
             ButtonState = true;
+            forceField.Play();
         }
         else if (!deToggling)
         {
+            buttonPress.Play();
+            forceFieldOpen.Play();
             ButtonState = false;
             deToggling = true;
             StartCoroutine(DeToggle());
+            forceField.Stop();
         }
     }
 
@@ -80,6 +90,7 @@ public class FireButton : MonoBehaviour
             }
 
             if (canClick && Input.GetKeyDown(KeyCode.Space))
+                
                 ToggleButton();
         }
     }

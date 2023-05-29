@@ -21,6 +21,7 @@ public class GrabObjects : MonoBehaviour
     [SerializeField]
     private LayerMask HeldObjLayer;
     private LayerMask HeldObjStored;
+    public AudioSource placeObject;
 
     private void Start()
 	{
@@ -102,6 +103,7 @@ public class GrabObjects : MonoBehaviour
             }
             else if (Keyboard.current.spaceKey.wasPressedThisFrame && grabbedObject != null) //else if something grabbed
             {
+                placeObject.Play();
                 CratePutBack(hitInfo);
             }
 		}

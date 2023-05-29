@@ -69,4 +69,9 @@ public class PlayerMovement : MonoBehaviour
     {
         m_Movement.y = 0;
     }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
 }

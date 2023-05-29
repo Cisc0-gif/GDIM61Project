@@ -17,6 +17,7 @@ public class StorageCratePopup : MonoBehaviour
     private GameObject playerPos;
     private Vector3 cratePos;
     private Light2D lightSource;
+    public AudioSource PopUpSound;
 
     // Start is called before the first frame update
     void Start()
@@ -77,10 +78,12 @@ public class StorageCratePopup : MonoBehaviour
 	{
         if (animator.GetFloat("Distance") == 1)
         {
+            PopUpSound.Play();
             lightSource.enabled = true;
         }
         else
         {
+            PopUpSound.Play();
             lightSource.enabled = false;
         }
     }
